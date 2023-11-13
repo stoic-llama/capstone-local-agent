@@ -67,6 +67,7 @@ pipeline {
                     sh '''
                         ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "docker run -d \
                         -p 5900:5900 \
+                        -e PORT=5900 \
                         -e API_VERSION=1 \
                         --rm \
                         --name ${containerName} \
@@ -77,11 +78,11 @@ pipeline {
 
                         docker ps
                         
-                        containerId=${docker ps -q --filter name=${containerName}}
+                        containerId=$(docker ps -q --filter name=capstone-local-agent)
 
                         echo "containerId: $containerId"
 
-                        docker cp /var/lib/docker/volumes/capstone_home/_data/agent/.env $containerId:/home/app
+                        docker cp /var/capstone_home/agent/.env $containerId:/home/app
                         "
                     '''
                 }
