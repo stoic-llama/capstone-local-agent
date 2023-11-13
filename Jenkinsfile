@@ -75,18 +75,24 @@ pipeline {
                         -v /var/run/docker.sock:/var/run/docker.sock \
                         -v capstone_home:/var/capstone_home \
                         stoicllama/${containerName}:${version}
-
+                        
                         docker ps
+                        "
+                    '''
+                }
 
-                        containerId=$(docker ps -q --filter name=capstone-local-agent)
+                withCredentials([
+                    string(credentialsId: 'website', variable: 'WEBSITE'),
+                ]) {
+                    script {
+                        def containerId=sh(script: 'ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key "${WEBSITE}" docker ps -q --filter name="${containerName}"', returnStdout: true) 
 
                         echo "containerId: $containerId"
 
                         docker exec -it $containerId sh
 
                         docker cp /var/capstone_home/agent/.env $containerId:/home/app
-                        "
-                    '''
+                    }
                 }
             }
 
