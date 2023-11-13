@@ -77,10 +77,12 @@ pipeline {
                         stoicllama/${containerName}:${version}
 
                         docker ps
-                        
+
                         containerId=$(docker ps -q --filter name=capstone-local-agent)
 
                         echo "containerId: $containerId"
+
+                        docker exec -it containerId sh
 
                         docker cp /var/capstone_home/agent/.env $containerId:/home/app
                         "
