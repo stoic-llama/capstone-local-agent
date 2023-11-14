@@ -87,19 +87,11 @@ pipeline {
                     string(credentialsId: 'website', variable: 'WEBSITE'),
                 ]) {
                     sh '''
-                        ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "echo "starting second half..."
-
-                        containerId=$(docker ps -q --filter name=capstone-local-agent) 
-
-                        echo "containerId: $containerId"
+                        ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "containerId=$(docker ps -q --filter name=capstone-local-agent) 
 
                         docker exec -it $containerId sh
 
-                        echo "inside the capstone-local-agent container..."
-                        echo "containerId: $containerId"
-
                         docker cp /var/capstone_home/agent/.env $containerId:/home/app
-
                         "
                     '''
                 }
