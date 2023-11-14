@@ -87,9 +87,7 @@ pipeline {
                     string(credentialsId: 'website', variable: 'WEBSITE'),
                 ]) {
                     sh '''
-                        ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "ls /var/lib/docker/volumes/capstone_home/_data/agent
-                        /var/lib/docker/volumes/capstone_home/_data/agent/load_env.sh
-                        "
+                        ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "/var/lib/docker/volumes/capstone_home/_data/agent/load_env.sh"
                     '''
                 }
             }
