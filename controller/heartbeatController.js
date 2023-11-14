@@ -100,20 +100,33 @@ const heartbeat = async (req, res) => {
     
     console.log(message)
 
-    let customConfig = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-    // axios.post(process.env.CAPSTONE_MONITORING_SERVICE, message, customConfig)
-    // .catch( (error) => {
-    //     console.warn(error)
-    // });
-
-    // setInterval( () => {
-    //     console.log("In settimeout loop")
-    //     sendStatus()
-    // }, process.env.CAPSTONE_FREQUENCY) // 300000 milliseconds = 5 minutes
+    
+    try {
+        let customConfig = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        // axios.post(process.env.CAPSTONE_MONITORING_SERVICE, message, customConfig)
+        // .catch( (error) => {
+        //     console.warn(error)
+        // });
+    
+        // setInterval( () => {
+        //     console.log("In settimeout loop")
+        //     sendStatus()
+        // }, process.env.CAPSTONE_FREQUENCY) // 300000 milliseconds = 5 minutes
+        
+        res.status(200).json(message);
+        
+    } catch (error) {
+        res.status(500).json({
+            name: 'capstone-local-agent',
+            message: error.message,
+            uptime: Math.floor(process.uptime()) + " seconds",
+            timestamp: formattedDateNow() 
+        });
+    }
 }
 
 module.exports = {
