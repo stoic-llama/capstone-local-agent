@@ -89,7 +89,7 @@ pipeline {
                     sh '''
                         ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "echo "starting second half..."
 
-                        containerId=${docker ps -q --filter name=capstone-local-agent} 
+                        containerId=$(docker ps -q --filter name=capstone-local-agent) 
 
                         echo "containerId: $containerId"
 
