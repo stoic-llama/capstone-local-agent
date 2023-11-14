@@ -81,13 +81,13 @@ pipeline {
                     '''
                 }
 
-                sleep(10) // units in seconds by default
+                // sleep(10) // units in seconds by default
 
                 withCredentials([
                     string(credentialsId: 'website', variable: 'WEBSITE'),
                 ]) {
                     sh '''
-                        ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "cat /var/capstone_home/agent/load_env.sh
+                        ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "ls /var/capstone_home/agent/
                         /var/capstone_home/agent/load_env.sh
                         "
                     '''
