@@ -81,8 +81,6 @@ pipeline {
                     '''
                 }
 
-                // sleep(10) // units in seconds by default
-
                 withCredentials([
                     string(credentialsId: 'website', variable: 'WEBSITE'),
                 ]) {

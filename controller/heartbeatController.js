@@ -1,131 +1,127 @@
 require('dotenv').config()
 
+const fs = require('fs');
+var path = require("path");
 const { execShellCommand } = require('../parsers/getNodeStatus')
 const { findDeadNodes } = require('../parsers/getDeadNodes')
 const { formattedDateNow } = require('../parsers/getTimestamp')
 const axios = require('axios')
 
+const read = async () => {
+    let env = await new Promise( (resolve, reject) => {
+        return fs.readFile(path.resolve(__dirname, "../config.json"), {encoding: "utf8"}, (error, data) => {
+            if(error) {
+                console.log("fs error: " + error)
+                return reject(error)
+            }
+
+            return resolve(data)
+        });
+    })
+
+    return env
+} 
 
 const heartbeat = async (req, res) => {
-    // get all nodes, dead or alive
-    const cmdAll = 'docker ps -a --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
-    // get only live nodes
-    const cmdLive = 'docker ps --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
-
-    // jenkins URLs
-    let jenkinsURLs = [] 
-    let jNames = []
-    let jUrls = []
-    const jobs = process.env.CAPSTONE_JENKINS.split('____');
-
-    for(let i=0; i<jobs.length; i++) {
-        if(i % 2 === 0) {
-            jNames.push(jobs[i])
-        } else {
-            jUrls.push(jobs[i])
-        }
-    } 
-
-    for(let i=0; i<jNames.length; i++) {
-        jenkinsURLs.push({
-            name: jNames[i],
-            url: jUrls[i],        
-        })
-    }
-
-    // app level healthcheck URLs
-    let healthcheckURLs = [] 
-    let names = []
-    let urls = []
-    const apps = process.env.CAPSTONE_APPS.split('____');
-
-    for(let i=0; i<apps.length; i++) {
-        if(i % 2 === 0) {
-            names.push(apps[i])
-        } else {
-            urls.push(apps[i])
-        }
-    } 
-
-    for(let i=0; i<names.length; i++) {
-        healthcheckURLs.push({
-            name: names[i],
-            url: urls[i],        
-        })
-    }
-
-    let allNodes = []
-    let liveNodes = []
-    let appResponses = []
-    let message = {
-        agentID: 0,
-        contact: '',
-        contact_email: '',
-        restart: "",
-        jenkins: "",
-        createdOn: "",
-        allNodes: [],
-        liveNodes: [],
-        deadNodes: [],
-        appStatus: [],
-    }
-
-    await execShellCommand(cmdAll).then(nodes => { allNodes = nodes })    
-    await execShellCommand(cmdLive).then(nodes => { liveNodes = nodes })
-
-    for(i = 0; i<healthcheckURLs.length; i++) {
-        await axios.get(healthcheckURLs[i].url).then( res => {
-            appResponses.push(res.data)
-        }).catch(err => {
-            appResponses.push({
-                name: healthcheckURLs[i].name,
-                message: err.code, //AxiosError Codes
-                uptime: '0 seconds',
-                timestamp: formattedDateNow()
-            })
-        })
-    }
-    
-    message.agentID = process.env.CAPSTONE_AGENT_ID
-    message.contact = process.env.CAPSTONE_CONTACT_NAME
-    message.contact_email = process.env.CAPSTONE_CONTACT_EMAIL
-    message.restart = process.env.CAPSTONE_RESTART_URL
-    message.jenkins = jenkinsURLs
-    message.createdOn = formattedDateNow()
-    message.allNodes = allNodes
-    message.liveNodes = liveNodes 
-    message.deadNodes = findDeadNodes(liveNodes, allNodes) 
-    message.appStatus = appResponses 
-    
-    
-    console.log(message)
-
-    
     try {
-        let customConfig = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        // axios.post(process.env.CAPSTONE_MONITORING_SERVICE, message, customConfig)
-        // .catch( (error) => {
-        //     console.warn(error)
-        // });
+        // read from config.json
+        let env = await read().then( function(data){
+            return JSON.parse(data)
+        })
+
+        // initialize the other variables
+        let allNodes = []
+        let liveNodes = []
+        let appResponses = []
+
+        // get all nodes, dead or alive
+        const cmdAll = 'docker ps -a --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
+        // get only live nodes
+        const cmdLive = 'docker ps --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
+            
+        await execShellCommand(cmdAll).then(nodes => { allNodes = nodes })    
+        await execShellCommand(cmdLive).then(nodes => { liveNodes = nodes })
     
-        // setInterval( () => {
-        //     console.log("In settimeout loop")
-        //     sendStatus()
-        // }, process.env.CAPSTONE_FREQUENCY) // 300000 milliseconds = 5 minutes
-        
-        res.status(200).json(message);
-        
+        for(i = 0; i<env.CAPSTONE_APPS.length; i++) {
+            await axios.get(env.CAPSTONE_APPS[i].url).then( res => {
+                appResponses.push(res.data)
+            }).catch(err => {
+                appResponses.push({
+                    name: env.CAPSTONE_APPS[i].name,
+                    message: err.code, //AxiosError Codes
+                    uptime: '0 seconds',
+                    timestamp: formattedDateNow()
+                })
+            })
+        }
+
+        // send to monitoring service, publisher
+        let message = JSON.stringify({
+            agentID: env.CAPSTONE_AGENT_ID,
+            contact: env.CAPSTONE_CONTACT_NAME,
+            contact_email: env.CAPSTONE_CONTACT_EMAIL,
+            restart: env.CAPSTONE_RESTART_URL,
+            jenkins: env.CAPSTONE_JENKINS,
+            createdOn: formattedDateNow(),
+            allNodes: allNodes,
+            liveNodes: liveNodes, 
+            deadNodes: findDeadNodes(liveNodes, allNodes), 
+            appStatus: appResponses, 
+        })
+        let customConfig = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: env.CAPSTONE_MONITORING_SERVICE,
+            headers: { 
+              'Content-Type': 'application/json'
+            },
+            data : message
+        };
+
+        axios.request(customConfig)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+            // always executed
+            console.log("Tried kicking off axios post request")
+        })
+                    
+        if(process.env.ENVIRONMENT === 'test') {            
+            res.status(200).json({
+                agentID: env.CAPSTONE_AGENT_ID,
+                contact: env.CAPSTONE_CONTACT_NAME,
+                contact_email: env.CAPSTONE_CONTACT_EMAIL,
+                restart: env.CAPSTONE_RESTART_URL,
+                jenkins: env.CAPSTONE_JENKINS,
+                createdOn: formattedDateNow(),
+                allNodes: allNodes,
+                liveNodes: liveNodes, 
+                deadNodes: findDeadNodes(liveNodes, allNodes), 
+                appStatus: appResponses, 
+            });
+        }
+
     } catch (error) {
-        res.status(500).json({
+        console.log({
             name: 'capstone-local-agent',
             message: error.message,
             uptime: Math.floor(process.uptime()) + " seconds",
             timestamp: formattedDateNow() 
-        });
+        })
+        console.log("This round had an error.")
+
+        if(process.env.ENVIRONMENT === 'test') {            
+            res.status(500).json({
+                name: 'capstone-local-agent',
+                message: error.message,
+                uptime: Math.floor(process.uptime()) + " seconds",
+                timestamp: formattedDateNow() 
+            });
+        }
     }
 }
 
