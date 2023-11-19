@@ -7,6 +7,7 @@ RUN apk add --update docker openrc
 
 ENV PORT=5900
 ENV API_VERSION=1
+ENV ENVIRONMENT="production"
 
 # create destination directory
 RUN mkdir -p /home/app

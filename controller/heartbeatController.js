@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const fs = require('fs');
-var path = require("path");
+const path = require('path');
 const { execShellCommand } = require('../parsers/getNodeStatus')
 const { findDeadNodes } = require('../parsers/getDeadNodes')
 const { formattedDateNow } = require('../parsers/getTimestamp')

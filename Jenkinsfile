@@ -69,6 +69,7 @@ pipeline {
                         -p 5900:5900 \
                         -e PORT=5900 \
                         -e API_VERSION=1 \
+                        -e ENVIRONMENT="production" \
                         --rm \
                         --name ${containerName} \
                         --network helpmybabies \
@@ -85,7 +86,7 @@ pipeline {
                     string(credentialsId: 'website', variable: 'WEBSITE'),
                 ]) {
                     sh '''
-                        ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "/var/lib/docker/volumes/capstone_home/_data/agent/load_env.sh"
+                        ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "/var/lib/docker/volumes/capstone_home/_data/agent/load_config.sh"
                     '''
                 }
             }
