@@ -1,75 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capstone Local Agent</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Capstone Local Agent</title>
 
-    <!-- https://favicon.io/emoji-favicons/detective -->
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
-    <link rel="manifest" href="./assets/site.webmanifest">
-    
-    <link rel="stylesheet" href="styles.css">
-</head>
+        <!-- https://favicon.io/emoji-favicons/detective -->
+        <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+        <link rel="manifest" href="./assets/site.webmanifest">
+
+        <link rel="stylesheet" href="https://unpkg.com/survey-core@1.9.117/defaultV2.min.css">
+        <style>
+            #sv-pd-add-btn > div > button {
+                color: rgba(0, 199, 0, 0.8);
+            }
+            .sd-paneldynamic__remove-btn:hover {
+                color: rgba(255, 0, 0, 0.85);
+                background-color: rgba(255,255,255, 0.25) !important;
+            }
+        </style>
+    </head>
     <body>
-        <section class="contact-form">
-            <h1>Send Me a Message</h1>
-            <p>Use this handy contact form to get in touch with me.</p>
-            
-            <form>
-            <div class="input-group">
-                <input id="salutation-mr" name="salutation" type="radio" value="Mr."/>
-                <label class="inline" for="salutation-mr">Mr.</label>
-                
-                <input id="salutation-mrs" name="salutation" type="radio" value="Mrs."/>
-                <label class="inline" for="salutation-mrs">Mrs.</label>
-                
-                <input id="salutation-ms" name="salutation" type="radio" value="Ms."/>
-                <label class="inline" for="salutation-ms">Ms.</label>
-            </div>
-            
-            <div class="input-group">
-                <label for="name">Full Name</label>
-                <input id="name" name="name" type="text"/>
-            </div>
-            
-            <div class="input-group">
-                <label for="email">Email Address</label>
-                <input id="email" name="email" type="email"/>
-            </div>
-            
-            <div class="input-group">
-                <label for="subject">How can I help you?</label>
-                <select id="subject" name="subject">
-                <option>I have a problem.</option>
-                <option>I have a general question.</option>
-                </select>
-            </div>
-            
-            <div class="input-group">
-                <label for="message">Enter a Message</label>
-                <textarea id="message" name="message" rows="6" cols="65"></textarea>
-            </div>
-            
-            <div class="input-group">
-                <p class="group-label">Please send me:</p>
-                <input id="snacks-pizza" name="snacks" type="checkbox" value="pizza"/>
-                <label class="inline" for="snacks-pizza">Pizza</label>
-                <input id="snacks-cake" name="snacks" type="checkbox" value="cake"/>
-                <label class="inline" for="snacks-cake">Cake</label>
-            </div>
-            <input name="secret" type="hidden" value="1b3a9374-1a8e-434e-90ab-21aa7b9b80e7"/>
-            <button type="submit">Send It!</button>
-            </form>
-        </section>
-
-        <div class="results">
-            <h2>Form Data</h2>
-            <pre></pre>
+        <div id="surveyElement" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
         </div>
-
-        <script type="text/javascript" src="main.js"></script>
     </body>
+
+    <script src="https://unpkg.com/@babel/standalone@7.2.5/babel.min.js"></script>
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/survey-core@1.9.117/survey.core.min.js"></script>
+    <script src="https://unpkg.com/survey-core@1.9.117/survey.i18n.min.js"></script>
+    <script src="https://unpkg.com/survey-core@1.9.117/themes/index.min.js"></script>
+    <script src="https://unpkg.com/survey-react-ui@1.9.117/survey-react-ui.min.js"></script>
+    <script src="main.js"></script>
 </html>

@@ -2,6 +2,29 @@ const fs = require('fs');
 var path = require('path');
 const { formattedDateNow } = require('../parsers/getTimestamp')
 
+const readConfig = async (req, res) => {
+    // fs.readFileSync(path.resolve(__dirname, "../config.json"), {encoding: "utf8"}, (error, data) => {
+    //     if(error) {
+    //         console.log("fs error: " + error)
+    //         res.status(500).send({ message: error})
+    //     }
+
+    //     res.status(200).send(JSON.stringify(data))
+    // })
+
+    let env = await new Promise( (resolve, reject) => {
+        return fs.readFile(path.resolve(__dirname, "../config.json"), {encoding: "utf8"}, (error, data) => {
+            if(error) {
+                console.log("fs error: " + error)
+                return reject(error)
+            }
+
+            return resolve(data)
+        });
+    })
+
+    res.status(200).send(env)
+}
 
 const config = (req, res) => {
     // Largely leveraged this code from Stackoverflow for the filewrite logic
@@ -22,6 +45,9 @@ const config = (req, res) => {
                 // need to use JSON.parse() because data is still a stream 
                 // that needs to be converted to JSON
                 // Refer https://stackoverflow.com/a/50823095/14726792
+                console.log("Before JSON.parse(src)")
+                console.log(src)
+                
                 srcObj = JSON.parse(src)
             });
             
@@ -34,7 +60,7 @@ const config = (req, res) => {
             }
     
             // update any additional things you want to do manually like this
-            srcObj.envLastUpdated = formattedDateNow();
+            srcObj.lastUpdated = formattedDateNow();
     
             // convert the updated src object back to JSON text
             var updatedJson = JSON.stringify(srcObj, null, 4);
@@ -62,5 +88,6 @@ const config = (req, res) => {
 }
 
 module.exports = {
-    config
+    config,
+    readConfig
 };

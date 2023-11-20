@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Local Agent</title>
+
+    <!-- https://favicon.io/emoji-favicons/detective -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+    <link rel="manifest" href="./assets/site.webmanifest">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+    <body>
+        <section class="config-form">
+            <form action="">
+                <div class="input-group">
+                    <label for="CAPSTONE_AGENT_ID">Capstone Agent ID</label>
+                    <input id="CAPSTONE_AGENT_ID" name="CAPSTONE_AGENT_ID" type="text"/>
+    
+                    <!-- <label for="CAPSTONE_RESTART_URL">Capstone Restart URL</label>
+                    <input id="CAPSTONE_RESTART_URL" name="CAPSTONE_RESTART_URL" type="text"/>
+    
+                    <label for="CAPSTONE_CONTACT_NAME">Capstone Contact Name</label>
+                    <input id="CAPSTONE_CONTACT_NAME" name="CAPSTONE_CONTACT_NAME" type="text"/>
+    
+                    <label for="CAPSTONE_CONTACT_EMAIL">Capstone Contact Email</label>
+                    <input id="CAPSTONE_CONTACT_EMAIL" name="CAPSTONE_CONTACT_EMAIL" type="text"/>
+    
+                    <label for="CAPSTONE_MONITORING_SERVICE">Capstone Monitoring Service URL</label>
+                    <input id="CAPSTONE_MONITORING_SERVICE" name="CAPSTONE_MONITORING_SERVICE" type="text"/> -->
+                </div>
+    
+                <div id="jenkins" >
+                    <div hidden id="jenkinsCounter">2</div>
+                    
+                    <p>Add Jenkins jobs for monitoring:</p>
+                    
+                    <!-- id and for need to match, so like jenkins1 to jenkins1, while name is jenkins -->
+                    <div class="input-group">
+                        <label for="jenkins_name_0">Name</label>
+                        <input id="jenkins_name_0" name="CAPSTONE_JENKINS_NAME" type="text"/>
+                        <label for="jenkins_url_0">URL</label>
+                        <input id="jenkins_url_0" name="CAPSTONE_JENKINS_URL" type="text"/>
+                    </div>
+                    <div class="input-group">
+                        <label for="jenkins_name_1">Name</label>
+                        <input id="jenkins_name_1" name="CAPSTONE_JENKINS_NAME" type="text"/>
+                        <label for="jenkins_url_1">URL</label>
+                        <input id="jenkins_url_1" name="CAPSTONE_JENKINS_URL" type="text"/>
+                    </div>
+                </div>
+
+                <button onclick="addJenkins(event)">Add Jenkins job</button>
+
+                <!-- <div class="input-group" id="apps">
+                    <p>Add Apps for monitoring:</p>
+                    <label for="0_app_name">Name</label>
+                    <input id="0_app_name" name="CAPSTONE_APPS[0][name]" type="text"/>
+                    <label for="0_app_url">URL</label>
+                    <input id="0_app_url" name="CAPSTONE_APPS[0][url]" type="text"/>
+
+                    <label for="1_app_name">Name</label>
+                    <input id="1_app_name" name="CAPSTONE_APPS[1][name]" type="text"/>
+                    <label for="1_app_url">URL</label>
+                    <input id="1_app_url" name="CAPSTONE_APPS[1][url]" type="text"/>
+                </div> -->
+
+                <button type="submit">Update Config</button>
+            </form>
+
+        </section>
+
+        <!-- <section class="contact-form">
+            <h1>Send Me a Message</h1>
+            <p>Use this handy contact form to get in touch with me.</p>
+            
+            <form>
+                <div class="input-group">
+                    <input id="salutation-mr" name="salutation" type="radio" value="Mr."/>
+                    <label class="inline" for="salutation-mr">Mr.</label>
+                    
+                    <input id="salutation-mrs" name="salutation" type="radio" value="Mrs."/>
+                    <label class="inline" for="salutation-mrs">Mrs.</label>
+                    
+                    <input id="salutation-ms" name="salutation" type="radio" value="Ms."/>
+                    <label class="inline" for="salutation-ms">Ms.</label>
+                </div>
+                
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input id="name" name="name" type="text"/>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email">Email Address</label>
+                    <input id="email" name="email" type="email"/>
+                </div>
+                
+                <div class="input-group">
+                    <label for="subject">How can I help you?</label>
+                    <select id="subject" name="subject">
+                    <option>I have a problem.</option>
+                    <option>I have a general question.</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="message">Enter a Message</label>
+                    <textarea id="message" name="message" rows="6" cols="65"></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <p class="group-label">Please send me:</p>
+                    <input id="snacks-pizza" name="snacks" type="checkbox" value="pizza"/>
+                    <label class="inline" for="snacks-pizza">Pizza</label>
+                    <input id="snacks-cake" name="snacks" type="checkbox" value="cake"/>
+                    <label class="inline" for="snacks-cake">Cake</label>
+                </div>
+
+
+
+                <input name="secret" type="hidden" value="1b3a9374-1a8e-434e-90ab-21aa7b9b80e7"/>
+                <button type="submit">Send It!</button>
+            </form>
+        </section>
+
+        <div class="results">
+            <h2>Form Data</h2>
+            <pre></pre>
+        </div> -->
+
+        <script type="text/javascript" src="main.js"></script>
+    </body>
+</html>

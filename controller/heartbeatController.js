@@ -90,7 +90,7 @@ const heartbeat = async (req, res) => {
             console.log("Tried kicking off axios post request")
         })
                     
-        if(process.env.ENVIRONMENT === 'test') {            
+        if(env.localAgentEnvironment === 'test') {            
             res.status(200).json({
                 agentID: env.CAPSTONE_AGENT_ID,
                 contact: env.CAPSTONE_CONTACT_NAME,
@@ -114,7 +114,7 @@ const heartbeat = async (req, res) => {
         })
         console.log("This round had an error.")
 
-        if(process.env.ENVIRONMENT === 'test') {            
+        if(env.localAgentEnvironment === 'test') {            
             res.status(500).json({
                 name: 'capstone-local-agent',
                 message: error.message,
