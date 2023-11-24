@@ -1,6 +1,5 @@
 // Global Variable
-var domain = 'localhost'
-
+var domain = 'helpmybabies.com'
 
 const json = {
     // "title": "Capstone Local Agent",
@@ -18,142 +17,6 @@ const json = {
               "html": "<h1>Welcome!</h1><p style='font-size: 1.2rem; margin-block-start: -2.25rem'>Capstone Local Agent v1.0</p>"
             }
         ]
-
-        // "elements": [
-        //     {
-        //         "type": "text",
-        //         "name": "CAPSTONE_AGENT_ID",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "title": "Capstone Agent ID",
-        //         "titleLocation": "top",
-        //         "placeholder": "Capstone Agent #" 
-        //     },
-        //     {
-        //         "type": "text",
-        //         "name": "CAPSTONE_RESTART_URL",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "title": "Capstone Restart URL",
-        //         "titleLocation": "top",
-        //         "placeholder": "Capstone Restart URL" 
-        //     },
-        //     {
-        //         "type": "text",
-        //         "name": "CAPSTONE_CONTACT_NAME",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "title": "Capstone Contact Name",
-        //         "titleLocation": "top",
-        //         "placeholder": "Capstone Contact Name" 
-        //     },
-        //     {
-        //         "type": "text",
-        //         "name": "CAPSTONE_CONTACT_EMAIL",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "title": "Capstone Contact Email",
-        //         "titleLocation": "top",
-        //         "placeholder": "Capstone Contact Email" 
-        //     },
-        //     {
-        //         "type": "text",
-        //         "name": "CAPSTONE_MONITORING_SERVICE",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "title": "Capstone Monitoring Service URL",
-        //         "titleLocation": "top",
-        //         "placeholder": "Capstone Monitoring Service URL" 
-        //     },
-        //     {
-        //         "type": "text",
-        //         "name": "localAgentDomain",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "title": "Local Agent Domain",
-        //         "titleLocation": "top",
-        //         "description": "Input localhost or domain to find the right API for local agent form to update config.json file.",
-        //         "placeholder": "localhost or domain" 
-        //     },
-        //     {
-        //         "type": "text",
-        //         "name": "localAgentEnvironment",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "title": "Local Agent Environment",
-        //         "titleLocation": "top",
-        //         "description": "Input production or test to enable or disable the manual heartbest for testing purposes.",
-        //         "placeholder": "production or test" 
-        //     },
-
-        //     {
-        //         "type": "paneldynamic",
-        //         "name": "CAPSTONE_JENKINS",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "titleLocation": "hidden",
-        //         "templateElements": [
-        //             {
-        //                 "type": "text",
-        //                 "name": "name",
-        //                 "width": "100%",
-        //                 "minWidth": "256px",
-        //                 "title": "Capstone Jenkins Job #{panelIndex} Name",
-        //                 "titleLocation": "top",
-        //                 "placeholder": "Capstone Jenkins Job Name" 
-        //             },
-        //             {
-        //                 "type": "text",
-        //                 "name": "url",
-        //                 "width": "100%",
-        //                 "minWidth": "256px",
-        //                 "title": "Capstone Jenkins Job #{panelIndex} URL",
-        //                 "titleLocation": "top",
-        //                 "placeholder": "Capstone Jenkins Job URL" 
-        //             },
-        //         ],
-        //         "panelCount": 1,
-        //         "minPanelCount": 1,
-        //         "confirmDeleteText": "Do you want to delete the jenkins job?",
-        //         "panelAddText": "Add Jenkins Job",
-        //         "panelRemoveText": "REMOVE",
-        //         "showRangeInProgress": false 
-        //     },
-
-        //     {
-        //         "type": "paneldynamic",
-        //         "name": "CAPSTONE_APPS",
-        //         "width": "100%",
-        //         "minWidth": "256px",
-        //         "titleLocation": "hidden",
-        //         "templateElements": [
-        //             {
-        //                 "type": "text",
-        //                 "name": "name",
-        //                 "width": "100%",
-        //                 "minWidth": "256px",
-        //                 "title": "Capstone Applications #{panelIndex} Name",
-        //                 "titleLocation": "top",
-        //                 "placeholder": "Capstone Applications Name" 
-        //             },
-        //             {
-        //                 "type": "text",
-        //                 "name": "url",
-        //                 "width": "100%",
-        //                 "minWidth": "256px",
-        //                 "title": "Capstone Applications #{panelIndex} URL",
-        //                 "titleLocation": "top",
-        //                 "placeholder": "Capstone Applications URL" 
-        //             },
-        //         ],
-        //         "panelCount": 1,
-        //         "minPanelCount": 1,
-        //         "confirmDeleteText": "Do you want to delete the application?",
-        //         "panelAddText": "Add Application",
-        //         "panelRemoveText": "REMOVE",
-        //         "showRangeInProgress": false 
-        //     },
-        // ]    
     }],
   
     "showQuestionNumbers": "off",
@@ -313,34 +176,6 @@ function SurveyComponent() {
         .then(response => response.text())
         .then(result => survey.data = JSON.parse(result))
         .catch(error => console.log('error', error));
-
-    // post survey actions
-    // survey.onComplete.add((sender, options) => {
-    //     let myHeaders = new Headers();
-    //     myHeaders.append("Content-Type", "application/json");
-    
-    //     let data = JSON.stringify(sender.data);
-    
-    //     let requestOptions = {
-    //         method: 'POST',
-    //         headers: myHeaders,
-    //         body: data,
-    //         redirect: 'follow'
-    //     };
-    //     fetch(`http://${domain}:5900/api/v1/config`, requestOptions)
-    //     .then(response => response.text())
-    //     .then(result => console.log(result))
-    //     .then(() => {
-    //         // update domain before survey page reloaded upon submission
-    //         domain = survey.data.localAgentDomain
-
-    //         // Pause 3 seconds before refreshing page
-    //         setTimeout(() => {
-    //             location.reload()
-    //         }, 3000)
-    //     })
-    //     .catch(error => console.log('error', error));
-    // });
 
     survey.addNavigationItem({
         id: "sv-nav-scheduler",

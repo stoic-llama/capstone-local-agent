@@ -19,12 +19,11 @@ app.use(apiVersion, router);
 /****************************************************** 
  * Static Content
  * ****************************************************/ 
-app.use(express.static(path.join(__dirname, '/public')));
-// Handles any requests that don't match the ones above
-// app.get('*', (req,res) =>{
-//     console.log(res);
-//     res.sendFile(path.join(__dirname+'/public/index.html'));
-// });
+if(process.env.DOMAIN === 'localhost') {
+    app.use(express.static(path.join(__dirname, '/public_dev')));
+} else { // production
+    app.use(express.static(path.join(__dirname, '/public')));
+}
 
 let port = process.env.PORT || 9999
 

@@ -1,5 +1,5 @@
 // Global Variable
-var domain = 'helpmybabies.com'
+var domain = 'localhost'
 
 
 const json = {

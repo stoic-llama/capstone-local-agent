@@ -1,164 +1,58 @@
-// Global Variable
-var domain = 'helpmybabies.com'
-
-
 const json = {
-    "title": "Configuration",
+    "title": "Schedule Heartbeat",
     // "description": "Check-in is available 2 to 24 hours prior to departure for all destinations. To complete the check-in process, please fill out the form below.",
     // "logo": "https://api.surveyjs.io/private/Surveys/files?name=ee96dc76-ecfb-4b17-8589-493015f1132a",
     // "logoWidth": "auto",
     // "logoHeight": "40",
-    "completedHtml": "<div style=\"max-width:640px;text-align:center;margin:16px auto;\">\n\n<div style=\"padding:0 24px;\">\n<p>Updating local agent configuration...</p>\n</div>\n\n</div>\n",
+    "completedHtml": "<div style=\"max-width:640px;text-align:center;margin:16px auto;\">\n\n<div style=\"padding:0 24px;\">\n<p>Updating heartbeat schedule...</p>\n</div>\n\n</div>\n",
     "pages": [{
-        "name": "Configuration",
+        "name": "Scheduler",
         "elements": [
             {
                 "type": "text",
-                "name": "CAPSTONE_AGENT_ID",
+                "name": "freq",
                 "width": "100%",
                 "minWidth": "256px",
-                "title": "Capstone Agent ID",
+                "title": "Frequencing of Sending Heartbeat (cron format)",
                 "titleLocation": "top",
-                "placeholder": "Capstone Agent #" 
+                "description": "Heartbeat schedule must be stopped and started again to have updated frequency.",
+                "placeholder": "*/15 * * * * *" 
             },
             {
                 "type": "text",
-                "name": "CAPSTONE_RESTART_URL",
+                "name": "scheduledStatus",
                 "width": "100%",
                 "minWidth": "256px",
-                "title": "Capstone Restart URL",
+                "title": "Heartbeat Schedule Status (On | Off)",
                 "titleLocation": "top",
-                "placeholder": "Capstone Restart URL" 
+                "readOnly": "true",
+                "placeholder": "Off" 
             },
             {
                 "type": "text",
-                "name": "CAPSTONE_CONTACT_NAME",
+                "name": "lastStart",
                 "width": "100%",
                 "minWidth": "256px",
-                "title": "Capstone Contact Name",
+                "title": "Last time heartbeat was started",
                 "titleLocation": "top",
-                "placeholder": "Capstone Contact Name" 
+                "readOnly": "true",
+                "placeholder": "Never Ever" 
             },
             {
                 "type": "text",
-                "name": "CAPSTONE_CONTACT_EMAIL",
+                "name": "lastStop",
                 "width": "100%",
                 "minWidth": "256px",
-                "title": "Capstone Contact Email",
+                "title": "Last time heartbeat was stopped",
                 "titleLocation": "top",
-                "placeholder": "Capstone Contact Email" 
-            },
-            {
-                "type": "text",
-                "name": "CAPSTONE_MONITORING_SERVICE",
-                "width": "100%",
-                "minWidth": "256px",
-                "title": "Capstone Monitoring Service URL",
-                "titleLocation": "top",
-                "placeholder": "Capstone Monitoring Service URL" 
-            },
-            // {
-            //     "type": "text",
-            //     "name": "localAgentDomain",
-            //     "width": "100%",
-            //     "minWidth": "256px",
-            //     "title": "Local Agent Domain",
-            //     "titleLocation": "top",
-            //     "description": "Input localhost or domain to find the right API for local agent form to update config.json file.",
-            //     "placeholder": "localhost or domain" 
-            // },
-            {
-                "type": "text",
-                "name": "localAgentEnvironment",
-                "width": "100%",
-                "minWidth": "256px",
-                "title": "Local Agent Environment",
-                "titleLocation": "top",
-                "description": "Input production or test to enable or disable the manual heartbest for testing purposes.",
-                "placeholder": "production or test" 
-            },
-            {
-                "type": "text",
-                "name": "metricsDashboardURL",
-                "width": "100%",
-                "minWidth": "256px",
-                "title": "Metrics Dashboard URL",
-                "titleLocation": "top",
-                "placeholder": "Capstone Metrics Dashboard URL" 
-            },
-
-            {
-                "type": "paneldynamic",
-                "name": "CAPSTONE_JENKINS",
-                "width": "100%",
-                "minWidth": "256px",
-                "titleLocation": "hidden",
-                "templateElements": [
-                    {
-                        "type": "text",
-                        "name": "name",
-                        "width": "100%",
-                        "minWidth": "256px",
-                        "title": "Capstone Jenkins Job #{panelIndex} Name",
-                        "titleLocation": "top",
-                        "placeholder": "Capstone Jenkins Job Name" 
-                    },
-                    {
-                        "type": "text",
-                        "name": "url",
-                        "width": "100%",
-                        "minWidth": "256px",
-                        "title": "Capstone Jenkins Job #{panelIndex} URL",
-                        "titleLocation": "top",
-                        "placeholder": "Capstone Jenkins Job URL" 
-                    },
-                ],
-                "panelCount": 1,
-                "minPanelCount": 1,
-                "confirmDeleteText": "Do you want to delete the jenkins job?",
-                "panelAddText": "Add Jenkins Job",
-                "panelRemoveText": "REMOVE",
-                "showRangeInProgress": false 
-            },
-
-            {
-                "type": "paneldynamic",
-                "name": "CAPSTONE_APPS",
-                "width": "100%",
-                "minWidth": "256px",
-                "titleLocation": "hidden",
-                "templateElements": [
-                    {
-                        "type": "text",
-                        "name": "name",
-                        "width": "100%",
-                        "minWidth": "256px",
-                        "title": "Capstone Applications #{panelIndex} Name",
-                        "titleLocation": "top",
-                        "placeholder": "Capstone Applications Name" 
-                    },
-                    {
-                        "type": "text",
-                        "name": "url",
-                        "width": "100%",
-                        "minWidth": "256px",
-                        "title": "Capstone Applications #{panelIndex} URL",
-                        "titleLocation": "top",
-                        "placeholder": "Capstone Applications URL" 
-                    },
-                ],
-                "panelCount": 1,
-                "minPanelCount": 1,
-                "confirmDeleteText": "Do you want to delete the application?",
-                "panelAddText": "Add Application",
-                "panelRemoveText": "REMOVE",
-                "showRangeInProgress": false 
+                "readOnly": "true",
+                "placeholder": "Never Ever" 
             },
         ]    
     }],
   
     "showQuestionNumbers": "off",
-    "questionDescriptionLocation": "underInput",
+    // "questionDescriptionLocation": "underInput",
     "questionErrorLocation": "bottom",
     "completeText": "Update",
     "widthMode": "static",
@@ -297,48 +191,63 @@ const themeJson = {
     "descriptionPositionY": "bottom" } 
 };
 
-
 function SurveyComponent() {
     // initiate SurveyJS
     const survey = new Survey.Model(json);
     survey.applyTheme(themeJson);
 
+    // TODO: Look into webpack or nunjucks to add env variable dynamically 
+    // in static assets in express
+    let domain = 'localhost'
+    console.log(domain)
+
     // Prequisite Setup for Existing Form for Auto-Populate
-    var requestOptions = {
+    let requestOptions = {
         method: 'GET',
         redirect: 'follow'
     };
-    fetch(`http://${domain}:5900/api/v1/readConfig`, requestOptions)
+    fetch(`http://${domain}:5900/api/v1/readScheduler`, requestOptions)
         .then(response => response.text())
         .then(result => survey.data = JSON.parse(result))
         .catch(error => console.log('error', error));
 
     // post survey actions
-    survey.onComplete.add((sender, options) => {
+    survey.onComplete.add((sender, options) => {        
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-    
         let data = JSON.stringify(sender.data);
-    
         let requestOptions = {
             method: 'POST',
             headers: myHeaders,
             body: data,
             redirect: 'follow'
         };
-        fetch(`http://${domain}:5900/api/v1/config`, requestOptions)
+        fetch(`http://${domain}:5900/api/v1/scheduler`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .then(() => {
-            // update domain before survey page reloaded upon submission
-            domain = survey.data.localAgentDomain
-
             // Pause 3 seconds before refreshing page
             setTimeout(() => {
                 location.reload()
             }, 3000)
         })
         .catch(error => console.log('error', error));
+    });
+
+    survey.addNavigationItem({
+        id: "sv-nav-startjob",
+        title: "Start Job",
+        action: () => survey.startJob(survey.data),
+        css: "nav-button",
+        innerCss: "sd-btn nav-input"
+    });
+
+    survey.addNavigationItem({
+        id: "sv-nav-stopJob",
+        title: "Stop Job",
+        action: () => survey.stopJob(survey.data),
+        css: "nav-button",
+        innerCss: "sd-btn nav-input"
     });
 
     survey.addNavigationItem({
@@ -352,8 +261,106 @@ function SurveyComponent() {
         innerCss: "sd-btn nav-input"
     });
 
+    /*******************
+     * Start Job Logic *
+     *******************/
+    survey.startJob = function(surveyData) {
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        let data = JSON.stringify({freq: surveyData.freq});
+        let requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: data,
+            redirect: 'follow'
+        };
+
+        fetch(`http://${domain}:5900/api/v1/startJob`, requestOptions)
+        .then(response => response.json()) // resolve promise to javascript object
+        .then(result => {
+            survey.updateSchedulerAfterStart(survey.data, result.timestamp) // returns undefined
+        })  
+        .then(() => {
+            // Pause 3 seconds before refreshing page
+            setTimeout(() => {
+                location.reload()
+            }, 3000)        
+        })
+        .catch(error => console.log('error', error));
+    }
+
+    survey.updateSchedulerAfterStart = function(surveyData, timestamp) {  
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        let data = JSON.stringify({
+            "freq": surveyData.freq,
+            "scheduledStatus": 'On',
+            "lastStart": timestamp,
+            "lastStop": '',
+        });
+        let requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: data,
+            redirect: 'follow'
+        };
+
+        fetch(`http://${domain}:5900/api/v1/scheduler`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+
+    /******************
+     * Stop Job Logic *
+     ******************/
+    survey.stopJob = function() {
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        let requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        fetch(`http://${domain}:5900/api/v1/stopJob`, requestOptions)
+        .then(response => response.json()) // resolve promise to javascript object
+        .then(result => {
+            survey.updateSchedulerAfterStop(survey.data, result.timestamp, "Off") // returns undefined
+        })  
+        .then(() => {
+            // Pause 3 seconds before refreshing page
+            setTimeout(() => {
+                location.reload()
+            }, 3000)        
+        })
+        .catch(error => console.log('error', error));
+    }
+
+    survey.updateSchedulerAfterStop = function(surveyData, timestamp) {  
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        let data = JSON.stringify({
+            "freq": surveyData.freq,
+            "scheduledStatus": 'Off',
+            "lastStart": '',
+            "lastStop": timestamp,
+        });
+        let requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: data,
+            redirect: 'follow'
+        };
+
+        fetch(`http://${domain}:5900/api/v1/scheduler`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+
     return /*#__PURE__*/React.createElement(SurveyReact.Survey, { model: survey });
 }
+
   
 const root = ReactDOM.createRoot(document.getElementById("surveyElement"));
 root.render( /*#__PURE__*/React.createElement(SurveyComponent, null));

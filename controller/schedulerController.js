@@ -2,9 +2,9 @@ const fs = require('fs');
 var path = require('path');
 const { formattedDateNow } = require('../parsers/getTimestamp')
 
-const readConfig = async (req, res) => {
+const readScheduler = async (req, res) => {
     let env = await new Promise( (resolve, reject) => {
-        return fs.readFile(path.resolve(__dirname, "../config.json"), {encoding: "utf8"}, (error, data) => {
+        return fs.readFile(path.resolve(__dirname, "../scheduler.json"), {encoding: "utf8"}, (error, data) => {
             if(error) {
                 console.log("fs error: " + error)
                 return reject(error)
@@ -17,10 +17,10 @@ const readConfig = async (req, res) => {
     res.status(200).send(env)
 }
 
-const config = (req, res) => {
+const scheduler = (req, res) => {
     // Largely leveraged this code from Stackoverflow for the filewrite logic
     // Refer https://stackoverflow.com/a/65378400
-    const fileName = path.join(__dirname, '../config.json')
+    const fileName = path.join(__dirname, '../scheduler.json')
 
     if (!req.is('application/json')) {
         res.status(500);
@@ -28,17 +28,14 @@ const config = (req, res) => {
     } else {
         try {
             // convert src json text to js object
-            // read full env config file:
+            // read full env scheduler file:
             var srcObj = {};
-            fs.readFile(path.resolve(__dirname, "../config.json"), "utf8", (error, src) => {
+            fs.readFile(path.resolve(__dirname, "../scheduler.json"), "utf8", (error, src) => {
                 if(error) console.log("fs error: " + error)
     
                 // need to use JSON.parse() because data is still a stream 
                 // that needs to be converted to JSON
                 // Refer https://stackoverflow.com/a/50823095/14726792
-                console.log("Before JSON.parse(src)")
-                console.log(src)
-                
                 srcObj = JSON.parse(src)
             });
             
@@ -79,6 +76,6 @@ const config = (req, res) => {
 }
 
 module.exports = {
-    config,
-    readConfig
+    scheduler,
+    readScheduler
 };

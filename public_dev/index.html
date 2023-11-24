@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Capstone Local Agent - Home</title>
+
+        <!-- https://favicon.io/emoji-favicons/detective -->
+        <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+        <link rel="manifest" href="./assets/site.webmanifest">
+
+        <link rel="stylesheet" href="https://unpkg.com/survey-core@1.9.117/defaultV2.min.css">
+        <style>
+            .sd-root_background-image {
+                opacity: 0.25 !important;
+            }
+
+            #sv-nav-start,
+            #sv-nav-prev,
+            #sv-nav-next,
+            #sv-nav-preview,
+            #sv-nav-complete {
+                display: none;
+            }
+            
+            #sv-nav-scheduler > div > input,
+            #sv-nav-config > div > input,
+            #sv-nav-metrics-dashboard > div > input {
+                color: black;
+                background-color: rgb(96, 255, 96);
+            }
+
+            #sp_100 > div.sv-components-column > div {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            #sp_100 > div.sv-components-column > div > * {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            }
+
+            @media only screen and (max-width: 590px) {
+                #sp_100 > div.sv-components-column > div {
+                    grid-template-columns: 1fr;
+                    width: 100%;
+                }  
+            }
+        </style>
+    </head>
+    <body>
+        <div id="surveyElement" style="position: absolute;top: 0; left: 0; right: 0; bottom: 0;">
+        </div>
+    </body>
+
+    <script src="https://unpkg.com/@babel/standalone@7.2.5/babel.min.js"></script>
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/survey-core@1.9.117/survey.core.min.js"></script>
+    <script src="https://unpkg.com/survey-core@1.9.117/survey.i18n.min.js"></script>
+    <script src="https://unpkg.com/survey-core@1.9.117/themes/index.min.js"></script>
+    <script src="https://unpkg.com/survey-react-ui@1.9.117/survey-react-ui.min.js"></script>
+    <script src="main.js"></script>
+</html>

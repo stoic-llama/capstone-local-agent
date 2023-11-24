@@ -1,7 +1,7 @@
 node_modules/
+DELETE/
 .env
 config.json
-_config.json
 env.local.json
 env.prod.json
 package-lock.json
