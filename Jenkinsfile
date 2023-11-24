@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        version = '1.1'
+        version = '1.2'
         containerName = 'capstone-local-agent'
     }
 
@@ -69,7 +69,7 @@ pipeline {
                         -p 5900:5900 \
                         -e PORT=5900 \
                         -e API_VERSION=1 \
-                        -e ENVIRONMENT="production" \
+                        -e DOMAIN="helpmybabies.com" \
                         --rm \
                         --name ${containerName} \
                         --network helpmybabies \
