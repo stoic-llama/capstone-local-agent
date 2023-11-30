@@ -29,6 +29,8 @@ const heartbeat = async (req, res) => {
             return JSON.parse(data)
         })
 
+        console.log(env)
+        
         // initialize the other variables
         let allNodes = []
         let liveNodes = []
@@ -44,6 +46,7 @@ const heartbeat = async (req, res) => {
     
         for(i = 0; i<env.CAPSTONE_APPS.length; i++) {
             await axios.get(env.CAPSTONE_APPS[i].url).then( res => {
+                console.log("response from each app for heartbeat: ")
                 appResponses.push(res.data)
             }).catch(err => {
                 appResponses.push({
@@ -55,6 +58,9 @@ const heartbeat = async (req, res) => {
             })
         }
 
+        console.log("appResponses")
+        console.log(appResponses)
+        
         // send to monitoring service, publisher
         let message = JSON.stringify({
             agentID: env.CAPSTONE_AGENT_ID,
@@ -80,10 +86,11 @@ const heartbeat = async (req, res) => {
 
         axios.request(customConfig)
         .then((response) => {
-          console.log(JSON.stringify(response.data));
+            console.log("Response from publisher API: " + JSON.stringify(response.data));
         })
         .catch((error) => {
-          console.log(error);
+            console.log("something went wrong from publisher response")
+            console.log(error);
         })
         .finally(() => {
             // always executed
