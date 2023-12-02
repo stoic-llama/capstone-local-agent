@@ -34,7 +34,7 @@ const heartbeat = async (req, res) => {
         // // initialize the other variables
         // let allNodes = []
         // let liveNodes = []
-        // let appResponses = []
+        let appResponses = []
 
         // // get all nodes, dead or alive
         // const cmdAll = 'docker ps -a --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
@@ -105,9 +105,9 @@ const heartbeat = async (req, res) => {
                 restart: env.CAPSTONE_RESTART_URL,
                 jenkins: env.CAPSTONE_JENKINS,
                 createdOn: formattedDateNow(),
-                allNodes: allNodes,
-                liveNodes: liveNodes, 
-                deadNodes: findDeadNodes(liveNodes, allNodes), 
+                // allNodes: allNodes,
+                // liveNodes: liveNodes, 
+                // deadNodes: findDeadNodes(liveNodes, allNodes), 
                 appStatus: appResponses, 
             });
         }
