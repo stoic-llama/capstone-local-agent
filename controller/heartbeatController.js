@@ -2,8 +2,8 @@ require('dotenv').config()
 
 const fs = require('fs');
 const path = require('path');
-const { execShellCommand } = require('../parsers/getNodeStatus')
-const { findDeadNodes } = require('../parsers/getDeadNodes')
+// const { execShellCommand } = require('../parsers/getNodeStatus')
+// const { findDeadNodes } = require('../parsers/getDeadNodes')
 const { formattedDateNow } = require('../parsers/getTimestamp')
 const axios = require('axios')
 
@@ -31,18 +31,18 @@ const heartbeat = async (req, res) => {
 
         console.log(env)
         
-        // initialize the other variables
-        let allNodes = []
-        let liveNodes = []
-        let appResponses = []
+        // // initialize the other variables
+        // let allNodes = []
+        // let liveNodes = []
+        // let appResponses = []
 
-        // get all nodes, dead or alive
-        const cmdAll = 'docker ps -a --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
-        // get only live nodes
-        const cmdLive = 'docker ps --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
+        // // get all nodes, dead or alive
+        // const cmdAll = 'docker ps -a --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
+        // // get only live nodes
+        // const cmdLive = 'docker ps --format "{{.ID}}__{{.Names}}__{{.Status}}___"'
             
-        await execShellCommand(cmdAll).then(nodes => { allNodes = nodes })    
-        await execShellCommand(cmdLive).then(nodes => { liveNodes = nodes })
+        // await execShellCommand(cmdAll).then(nodes => { allNodes = nodes })    
+        // await execShellCommand(cmdLive).then(nodes => { liveNodes = nodes })
     
         for(i = 0; i<env.CAPSTONE_APPS.length; i++) {
             await axios.get(env.CAPSTONE_APPS[i].url).then( res => {
@@ -69,9 +69,9 @@ const heartbeat = async (req, res) => {
             restart: env.CAPSTONE_RESTART_URL,
             jenkins: env.CAPSTONE_JENKINS,
             createdOn: formattedDateNow(),
-            allNodes: allNodes,
-            liveNodes: liveNodes, 
-            deadNodes: findDeadNodes(liveNodes, allNodes), 
+            // allNodes: allNodes,
+            // liveNodes: liveNodes, 
+            // deadNodes: findDeadNodes(liveNodes, allNodes), 
             appStatus: appResponses, 
         })
         let customConfig = {
@@ -94,7 +94,7 @@ const heartbeat = async (req, res) => {
         })
         .finally(() => {
             // always executed
-            console.log("Tried kicking off axios post request")
+            console.log("Axios post request was kicked off. This is finally command.")
         })
                     
         if(env.localAgentEnvironment === 'test') {            
