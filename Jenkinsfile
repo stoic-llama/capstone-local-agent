@@ -73,7 +73,6 @@ pipeline {
                         -p 5900:5900 \
                         -e PORT=5900 \
                         -e API_VERSION=1 \
-                        -e DOMAIN="helpmybabies.com" \
                         --rm \
                         --name ${containerName} \
                         --network helpmybabies \
