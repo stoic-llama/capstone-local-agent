@@ -7,7 +7,7 @@ function formattedDateNow()
 
    result = result + d.getFullYear()
             + "-"
-            + (d.getMonth()+1)
+            + String(d.getMonth() + 1).padStart(2, '0') // (d.getMonth()+1)
             + "-"
             + d.getDate().toString().padStart(2,0) 
             + "T"
