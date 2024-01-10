@@ -10,14 +10,14 @@ function formattedDateNow()
             + String(d.getMonth() + 1).padStart(2, '0') // (d.getMonth()+1)
             + "-"
             + d.getDate().toString().padStart(2,0) 
-            + "T"
+            + " "
             + d.getHours().toString().padStart(2,0)
             + ":"
             + d.getMinutes().toString().padStart(2,0)
             + ":"
             + d.getSeconds().toString().padStart(2,0)
-            + "."
-            + d.getMilliseconds().toString().padStart(3,0)
+            // + "."
+            // + d.getMilliseconds().toString().padStart(3,0)
 
    return result;
 }
