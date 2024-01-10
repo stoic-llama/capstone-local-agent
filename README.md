@@ -34,7 +34,7 @@ This solution will work with any application as long as your applications are ho
         "name":"capstone-auth",
         "message":"OK",
         "uptime":"2272883 seconds",
-        "timestamp":"2023-12-08T13:05:17.969"
+        "timestamp":"2023-12-08 13:05:17"
     }
     ```
     The JSON format is defined below.
@@ -47,7 +47,7 @@ This solution will work with any application as long as your applications are ho
 
     Timestamp is in [standard time format for JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format).
 
-    Below is an example implementation of a healthcheck end point in Express.
+    Below is an example implementation of a healthcheck end point in an Express.js application.
     ```javascript
         // healthcheck for overall application - is the app up or not?
         // this is not api-specfic, but overall app
@@ -81,9 +81,9 @@ This solution will work with any application as long as your applications are ho
 
             // format ---> 'YYYY/MM/DD hh:mm:ss SSS'
             result = result + d.getFullYear()
-                        + "/"
+                        + "-"
                         + (d.getMonth()+1)
-                        + "/"
+                        + "-"
                         + d.getDate().toString().padStart(2,0) 
                         + " "
                         + d.getHours().toString().padStart(2,0)
@@ -91,8 +91,6 @@ This solution will work with any application as long as your applications are ho
                         + d.getMinutes().toString().padStart(2,0)
                         + ":"
                         + d.getSeconds().toString().padStart(2,0)
-                        + "."
-                        + d.getMilliseconds().toString().padStart(3,0)
 
             return result;
         }
@@ -173,7 +171,7 @@ This solution will work with any application as long as your applications are ho
                         "url": "http://<your_app_host>/healthcheck"
                     },
                 ],
-                "lastUpdated": "2023-11-29T21:58:55.775"
+                "lastUpdated": "2023-11-29 21:58:55"
             }
         ```
 
@@ -190,8 +188,8 @@ This solution will work with any application as long as your applications are ho
                 "freq": "*/5 * * * *",
                 "scheduledStatus": "Off",
                 "lastStart": "",
-                "lastStop": "2023-11-23T21:09:53.887",
-                "lastUpdated": "2023-11-23T21:09:53.892"
+                "lastStop": "2023-11-23 21:09:53",
+                "lastUpdated": "2023-11-23 21:09:53"
             }
         ```
 
