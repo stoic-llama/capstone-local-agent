@@ -50,7 +50,7 @@ function restartContainer(name, res) {
         exec(cmd, (error, stdout, stderr) => {
             if (error) {
                 console.warn("error from restart: " + error)
-                res.status(400).json({
+                res.status(200).json({
                     message: `${name} could not be restarted. Error: ${error}`,
                     restartStatus: 'Fail',
                     timestamp: formattedDateNow()
@@ -77,7 +77,7 @@ function restartContainer(name, res) {
 
             if (stderr) {
                 console.warn("stderr from restart: " + stderr) 
-                res.status(400).json({
+                res.status(200).json({
                     message: `${name} could not be restarted. Error: ${error}`,
                     restartStatus: 'Fail',
                     timestamp: formattedDateNow()
