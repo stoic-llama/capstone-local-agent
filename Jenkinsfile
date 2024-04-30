@@ -91,7 +91,6 @@ pipeline {
                         -p 5900:5900 \
                         -e PORT=5900 \
                         -e API_VERSION=1 \
-                        --rm \
                         --name ${containerName} \
                         --network helpmybabies \
                         -v /var/run/docker.sock:/var/run/docker.sock \
